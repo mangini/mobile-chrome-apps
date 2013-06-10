@@ -49,6 +49,10 @@ process.on('uncaughtException', function(e) {
 var childProcess = require('child_process');
 var fs = require('fs');
 var path = require('path');
+// allow exists and existsSync to work in Node 0.8+ (fs) and prior (path)
+if(typeof fs.existsSync != 'function') {
+  fs.existsSync = path.existsSync;
+}
 
 var commandLineFlags = {
   'update-repo': 'prompt',
